@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
-const vedioSchema = new Schema(
+const videoSchema = new Schema(
     {
         videoFile:{
             type: String, //cloudinary url
