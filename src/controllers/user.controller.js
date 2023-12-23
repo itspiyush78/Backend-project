@@ -77,6 +77,18 @@ if (req.files && Array(req.files.coverImage) && req.files.coverImage.length > 0)
 } )
 
 
+const loginUser = asyncHandler(async (req, res) =>{
+  // req body -> data
+  // username or email
+  // find the user
+  //  password check
+  // access and refresh token
+  // send cookie
+
+
+})
+
 export {
     registerUser,
+    loginUser,
 }
