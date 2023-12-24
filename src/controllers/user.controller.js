@@ -83,7 +83,6 @@ const loginUser = asyncHandler(async (req, res) =>{
   // find the user
   //  password check
   // access and refresh token
-  // send cookie
 
 
 })
