@@ -349,7 +349,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 })
 
 
-const getUserChannel = asyncHandler(async (req, res) => {
+const getUserChannelProfile = asyncHandler(async (req, res) => {
     const { username } = req.params
 
     if (!username) {
@@ -438,13 +438,41 @@ const getWatchHistory = asyncHandler(async (req, res) => {
                     {
                         $lookup: {
                             from: "users",
-                            localField: "owner"
+                            localField: "owner",
+    foreignField: "_id",
+    as: "owner",
+    pipeline: [
+        {
+            $project: {
+                fullName: 1,
+                username: 1,
+                avatar: 1,
+            }
+        }
+    ]
                         }
+                    },
+                    {
+                     $addFields:{
+                        owner:{
+                            $first: "$owner"
+                        }
+                     }   
                     }
                 ]
             }
         }
     ])
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            user[0].watchHistory,
+            "Watch history fetched successfully"
+        )
+    )
 })
 
 export {
@@ -457,4 +485,6 @@ export {
     updateAccountDetails,
     updateUserAvatar,
     updateUserCoverImage,
+    getUserChannelProfile,
+    getWatchHistory,
 }
